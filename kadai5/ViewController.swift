@@ -13,25 +13,22 @@ class ViewController: UIViewController {
     @IBOutlet weak private var answerLabel: UILabel!
 
     @IBAction private func divideButton(_ sender: Any) {
-        // 割られる数が空白の場合
-        if leftNumber.text == "" {
+        guard let firstValue = Double(leftNumber.text ?? "") else {
             errorAlert(alertMessage: "割られる数を入力して下さい")
             return
         }
-        // 割る数が空白の場合
-        if rightNumber.text == "" {
+
+        guard let secondValue = Double(rightNumber.text ?? "") else {
             errorAlert(alertMessage: "割る数を入力して下さい")
             return
         }
-        // NSStringでキャスト、Stringをdouble型に変換できるようにする
-        let firstValue = ((leftNumber.text ?? "") as NSString).doubleValue
-        let secondValue = ((rightNumber.text ?? "") as NSString).doubleValue
-        // 割る数が0の場合
-        if rightNumber.text == "0" {
+
+        guard secondValue != 0 else {
             errorAlert(alertMessage: "割る数には0を入力しないで下さい")
             return
         }
-        let answerValue = firstValue/secondValue
+
+        let answerValue = firstValue / secondValue
         answerLabel.text = "\(answerValue)"
     }
 
